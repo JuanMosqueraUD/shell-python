@@ -18,15 +18,16 @@ def main():
 
 
 def handle_command(command):
-            
-    match command.split()[0]:  
+    commandPrefix = command.split()[0]
+    commandComplement = command.split(maxsplit=1)[1]
+    match commandPrefix:  
         case "echo":
-            print(command.split(maxsplit=1)[1])
+            print(commandComplement)
         case "type":
-            if command.split(maxsplit=1)[1] in inBuildCommands:
-                print(f"{command.split()[0]} is a shell built-in")
+            if commandComplement in inBuildCommands:
+                print(f"{commandComplement} is a shell builtin")
             else:
-                print(f"{command.split()[0]} is not a shell built-in")
+                print(f"{commandComplement}: not found")
         case _:
             print(f"{command}: command not found")
 
