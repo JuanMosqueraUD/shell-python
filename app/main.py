@@ -18,6 +18,8 @@ def main():
 
 
 def handle_command(command):
+    if command not in inBuildCommands:
+        print(f"{command}: command not found")
     commandPrefix = command.split()[0]
     commandComplement = command.split(maxsplit=1)[1]
     if not commandComplement:
