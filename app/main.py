@@ -9,6 +9,7 @@ def main():
         command = input()
         if command == "exit":
             running = False
+            break
         print(f"{command}: command not found")
     pass
 
