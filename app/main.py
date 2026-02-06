@@ -18,12 +18,8 @@ def main():
 
 
 def handle_command(command):
-    if command not in inBuildCommands:
-        print(f"{command}: command not found")
     commandPrefix = command.split()[0]
-    commandComplement = command.split(maxsplit=1)[1]
-    if not commandComplement:
-        commandComplement = ""
+    commandComplement = "".join(command.split()[1:])
     match commandPrefix:  
         case "echo":
             print(commandComplement)
@@ -34,6 +30,7 @@ def handle_command(command):
                 print(f"{commandComplement}: not found")
         case _:
             print(f"{command}: command not found")
+        
 
 
 if __name__ == "__main__":
