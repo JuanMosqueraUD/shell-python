@@ -20,6 +20,8 @@ def main():
 def handle_command(command):
     commandPrefix = command.split()[0]
     commandComplement = command.split(maxsplit=1)[1]
+    if not commandComplement:
+        commandComplement = ""
     match commandPrefix:  
         case "echo":
             print(commandComplement)
