@@ -9,9 +9,16 @@ def main():
         command = input()
         if command == "exit":
             running = False
-            break
-        print(f"{command}: command not found")
+        else: 
+            handle_command(command)
     pass
+
+    def handle_command(command):
+        match command.split()[0]:  
+            case "echo":
+                print(command.split()[1])
+            case _:
+                print(f"{command}: command not found")
 
 
 if __name__ == "__main__":
