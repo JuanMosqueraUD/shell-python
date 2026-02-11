@@ -2,7 +2,7 @@ import sys
 import os
 import subprocess
 
-inBuildCommands = ["echo", "exit", "type"]
+inBuildCommands = ["echo", "exit", "type", "pwd"]
 path = os.environ["PATH"].split(os.pathsep)
 
 def main():
