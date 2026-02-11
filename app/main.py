@@ -1,11 +1,11 @@
 import sys
 import os
+import subprocess
 
 inBuildCommands = ["echo", "exit", "type"]
-
+path = os.environ["PATH"].split(os.pathsep)
 
 def main():
-    # TODO: Uncomment the code below to pass the first stage
     running = True
     while running:
         sys.stdout.write("$ ")
@@ -19,9 +19,10 @@ def main():
 
 
 def handle_command(command):
-    commandPrefix = command.split()[0]
+    parts = command.split()
+    commandPrefix = parts[0]
     #" ".join une las partes separadas por espacios
-    commandComplement = " ".join(command.split()[1:])
+    commandComplement = " ".join(parts[1:])
     #switch case altas comparaciones de comandos
     match commandPrefix:  
         case "echo":
@@ -30,18 +31,24 @@ def handle_command(command):
             if commandComplement in inBuildCommands:
                 print(f"{commandComplement} is a shell builtin")
             else:
-                imported= importedComands(commandComplement)
+                imported= pathComands(commandComplement)
                 if imported:
                     print(f"{commandComplement} is {imported}")
                 else:
                     print(f"{commandComplement}: not found")
         case _:
-            print(f"{command}: command not found")
+            pathCommand = pathComands(commandPrefix)
+            if pathCommand:
+                #subprocess.run es el estandar actual para correr programas externos
+                subprocess.run([commandPrefix] + parts[1:])
+            else:
+                print(f"{command}: command not found")
 
-def importedComands(command):
-    path = os.environ["PATH"].split(os.pathsep)
+def pathComands(command):
+ 
     for dir in path:
         fullPath = os.path.join(dir, command)
+        # verifica que el archivo existe os.isfile y es ejecutable os.x_ok
         if os.path.isfile(fullPath) and os.access(fullPath, os.X_OK):
             return fullPath
     return None
