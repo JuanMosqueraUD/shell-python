@@ -36,6 +36,9 @@ def handle_command(command):
                     print(f"{commandComplement} is {imported}")
                 else:
                     print(f"{commandComplement}: not found")
+        case "pwd":
+            current_dir = os.getcwd()
+            print(current_dir)
         case _:
             pathCommand = pathComands(commandPrefix)
             if pathCommand:
