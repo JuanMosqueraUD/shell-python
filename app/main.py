@@ -63,7 +63,10 @@ def change_directory(path):
     if path == "~":
         os.chdir(home_dir)
     else:
-        os.chdir(path)
+        try:
+            os.chdir(path)
+        except FileNotFoundError:
+            print(f"cd: {path}: No such file or directory")
 
 if __name__ == "__main__":
     main()
