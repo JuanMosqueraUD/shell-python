@@ -2,7 +2,7 @@ import sys
 import os
 import subprocess
 
-inBuildCommands = ["echo", "exit", "type", "pwd"]
+inBuildCommands = ["echo", "exit", "type", "pwd", "cd"]
 path = os.environ["PATH"].split(os.pathsep)
 
 def main():
@@ -39,6 +39,8 @@ def handle_command(command):
         case "pwd":
             current_dir = os.getcwd()
             print(current_dir)
+        case "cd":
+            change_directory(commandComplement)
         case _:
             pathCommand = pathComands(commandPrefix)
             if pathCommand:
@@ -56,7 +58,12 @@ def pathComands(command):
             return fullPath
     return None
 
-
+def change_directory(path):
+    home_dir = os.path.expanduser("~")
+    if path == "~":
+        os.chdir(home_dir)
+    else:
+        os.chdir(path)
 
 if __name__ == "__main__":
     main()
